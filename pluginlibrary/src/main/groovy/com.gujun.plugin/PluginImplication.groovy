@@ -6,12 +6,7 @@ import org.gradle.api.Project
 public class PluginImplication implements Plugin<Project> {
 
     void apply(Project project) {
-
         //每个在build.gradle文件中添加插件（apply plugin: 'com.gujun.plugintest'）的都会执行此方法
-        //1、先获取当前运行的module
-        //2、在判断当前执行的module是否是运行的module
-        //3、是：就添加isApp的代码，添加需要的依赖，和文件资源
-        //4、否：设置library
 
         //build apks时格式：[:app:assembleDebug, :business:home:assembleDebug, :business:mine:assembleDebug]
         //单个运行的格式：[:app:assembleDebug]
@@ -20,38 +15,38 @@ public class PluginImplication implements Plugin<Project> {
         //rebuild project的格式：[clean, :business:mine:assembleDebug, :business:home:assembleDebug,...]
         List<String> taskNames = project.gradle.startParameter.taskNames
         String curBuildModule = project.project.path
-        System.out.println("-----------" + curBuildModule)
         if (taskNames.size() > 0) {
             //如果任务不为空，并且第一个任务是当前正在编译的module
             String firstTask = taskNames.get(0)
             boolean isAssemble = firstTask.toUpperCase().contains("ASSEMBLE") || firstTask.contains("aR") || firstTask.toUpperCase().contains("RESGUARD")
             if (isAssemble) {
+                //编译运行生成apk
                 String firstTaskModule = firstTask.substring(0, firstTask.lastIndexOf(":"))
                 if (curBuildModule == firstTaskModule) {
+                    //当前编译的module和任务的module是一样的，代表当前module是app
                     //设置app
                     setApp(project, curBuildModule)
                     //添加需要依赖的app类型的module,需要在gradle.properties中配置
                     addCompileComponents(project)
                 } else {
+                    //不是运行的module,代表是library
                     if (":app" != curBuildModule) {
-                        System.out.println("+++++++++" + curBuildModule + ",," + firstTaskModule)
                         //设置成library
                         setLibrary(project)
                     }
                 }
             } else {
-                System.out.println("______________" + curBuildModule)
+                //普通编译
                 setNotAssemble(project, curBuildModule)
             }
-
         } else {
-            System.out.println("------------" + curBuildModule)
+            //普通编译
             setNotAssemble(project, curBuildModule)
         }
     }
 
     /**
-     * 不是编译运行的设置
+     * 普通编译，不生成apk,此时是否是app根据当前module下的gradle.properties的isApp来确定
      * @param project
      * @param curBuildModule
      */
@@ -76,7 +71,6 @@ public class PluginImplication implements Plugin<Project> {
      */
     void setApp(Project project, String curBuildModule) {
         if (":app" != curBuildModule) {
-            System.out.println("______________" + curBuildModule)
             project.apply plugin: 'com.android.application'
             //设置资源相关
 //            project.android.sourceSets {
@@ -111,7 +105,6 @@ public class PluginImplication implements Plugin<Project> {
             return
         }
         for (String str : compileComponentsArray) {
-            System.out.println("str-------------" + str)
             project.dependencies.add("implementation", project.project(':' + str))
         }
     }
