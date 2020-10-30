@@ -1,0 +1,11 @@
+include ':business:media'
+include ':common'
+include ':business:mine'
+include ':base:database'
+include ':base:network'
+include ':base'
+include ':business:home'
+include ':business'
+include ':pluginlibrary'
+include ':app'
+rootProject.name = "KotlinApp"
