@@ -12,7 +12,3 @@ android {
         versionName rootProject.ext.android.versionName
     }
 }
-
-dependencies {
-    api project(":common")
-}
