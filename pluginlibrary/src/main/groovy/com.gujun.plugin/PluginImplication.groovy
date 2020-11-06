@@ -26,6 +26,8 @@ public class PluginImplication implements Plugin<Project> {
                     String firstTaskModule = firstTask.substring(0, firstTask.lastIndexOf(":"))
                     if (curBuildModule == firstTaskModule) {
                         //当前编译的module和任务的module是一样的，代表当前module是app
+                        //设置ApplicationId
+                        setApplicationIdInfo(project)
                         //设置app
                         setApp(project, curBuildModule)
                         //添加需要依赖的app类型的module,需要在gradle.properties中配置
@@ -82,9 +84,6 @@ public class PluginImplication implements Plugin<Project> {
      * @param project
      */
     void setApp(Project project, String curBuildModule) {
-        //设置ApplicationId
-        setApplicationId(project)
-
         if (":app" != curBuildModule) {
             project.apply plugin: 'com.android.application'
             //设置资源相关
@@ -103,18 +102,20 @@ public class PluginImplication implements Plugin<Project> {
      * 设置applicationId相关数据
      * @param project
      */
-    void setApplicationId(Project project) {
-        project.android.defaultConfig {
-            applicationId project.getRootProject().ext.android.applicationId
-        }
-        project.android.buildTypes {
-            debug {
-                //applicationId扩展
-                applicationIdSuffix project.getRootProject().ext.android.applicationIdSuffixDebug
+    void setApplicationIdInfo(Project project) {
+        project.android {
+            defaultConfig {
+                applicationId project.getRootProject().ext.android.applicationId
             }
-            release {
-                //applicationId扩展
-                applicationIdSuffix project.getRootProject().ext.android.applicationIdSuffixRelease
+            buildTypes {
+                debug {
+                    //applicationId扩展
+                    applicationIdSuffix project.getRootProject().ext.android.applicationIdSuffixDebug
+                }
+                release {
+                    //applicationId扩展
+                    applicationIdSuffix project.getRootProject().ext.android.applicationIdSuffixRelease
+                }
             }
         }
     }
