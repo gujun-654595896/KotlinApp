@@ -7,8 +7,12 @@ apply from:rootProject.file('libbase.gradle')
 android {
     defaultConfig {
         applicationId rootProject.ext.android.applicationId
+    }
 
-        versionCode rootProject.ext.android.versionCode
-        versionName rootProject.ext.android.versionName
+    buildTypes {
+        debug {
+            //applicationId扩展
+            applicationIdSuffix ".debug"
+        }
     }
 }

@@ -11,4 +11,6 @@ dependencies {
         k, v -> api v
     }
 
+    api "com.alibaba:arouter-api:$arouter_api_version"
+
 }

@@ -1,5 +1,63 @@
 apply plugin: 'com.gujun.plugintest'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
 
 dependencies {
     api project(":common")
+
+    //这个库必须放在每个用到的Module的配置中，否则报如下异常
+    //A failure occurred while executing org.jetbrains.kotlin.gradle.internal.KaptExecution
+    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
+}
+
+android {
+
+    defaultConfig {
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+    }
+
+    signingConfigs {
+        debugConfig {
+            storeFile file(rootProject.file("keystore.jks"))
+            storePassword "123456"
+            keyAlias "debug"
+            keyPassword "123456"
+        }
+        releaseConfig {
+            storeFile file(rootProject.file("keystore.jks"))
+            storePassword "123456"
+            keyAlias "release"
+            keyPassword "123456"
+        }
+    }
+
+    buildTypes {
+        debug {
+            //设置签名
+            signingConfig signingConfigs.debugConfig
+            zipAlignEnabled true
+            //是否能断点
+            debuggable = true
+
+            buildConfigField("boolean","IS_DEBUG",rootProject.ext.buildConfigDebug.IS_DEBUG)
+        }
+
+        release {
+            //设置签名
+            signingConfig signingConfigs.releaseConfig
+            zipAlignEnabled true
+            //是否能断点
+            debuggable = false
+
+            buildConfigField("boolean","IS_DEBUG",rootProject.ext.buildConfigRelease.IS_DEBUG)
+        }
+    }
 }
