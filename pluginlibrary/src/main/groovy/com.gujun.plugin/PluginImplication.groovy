@@ -13,6 +13,7 @@ public class PluginImplication implements Plugin<Project> {
         //Studio打开项目的格式：[]
         //clean project的格式：[clean]
         //rebuild project的格式：[clean, :business:mine:assembleDebug, :business:home:assembleDebug,...]
+        //assembleDebug的格式:[assembleDebug]
         List<String> taskNames = project.gradle.startParameter.taskNames
         String curBuildModule = project.project.path
         if (taskNames.size() > 0) {
@@ -20,19 +21,30 @@ public class PluginImplication implements Plugin<Project> {
             String firstTask = taskNames.get(0)
             boolean isAssemble = firstTask.toUpperCase().contains("ASSEMBLE") || firstTask.contains("aR") || firstTask.toUpperCase().contains("RESGUARD")
             if (isAssemble) {
-                //编译运行生成apk
-                String firstTaskModule = firstTask.substring(0, firstTask.lastIndexOf(":"))
-                if (curBuildModule == firstTaskModule) {
-                    //当前编译的module和任务的module是一样的，代表当前module是app
-                    //设置app
-                    setApp(project, curBuildModule)
-                    //添加需要依赖的app类型的module,需要在gradle.properties中配置
-                    addCompileComponents(project)
+                //编译运行生成apk,检测是否是assembleDebug等命令
+                if (firstTask.lastIndexOf(":") > 0) {
+                    String firstTaskModule = firstTask.substring(0, firstTask.lastIndexOf(":"))
+                    if (curBuildModule == firstTaskModule) {
+                        //当前编译的module和任务的module是一样的，代表当前module是app
+                        //设置app
+                        setApp(project, curBuildModule)
+                        //添加需要依赖的app类型的module,需要在gradle.properties中配置
+                        addCompileComponents(project)
+                    } else {
+                        //不是运行的module,代表是library
+                        if (":app" != curBuildModule) {
+                            //设置成library
+                            setLibrary(project)
+                        }
+                    }
                 } else {
-                    //不是运行的module,代表是library
+                    //assembleDebug等命令
                     if (":app" != curBuildModule) {
                         //设置成library
                         setLibrary(project)
+                    } else {
+                        //添加需要依赖的app类型的module,需要在gradle.properties中配置
+                        addCompileComponents(project)
                     }
                 }
             } else {
