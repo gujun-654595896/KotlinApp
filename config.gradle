@@ -12,14 +12,16 @@ ext {
     arouter_api_version = versions.AROUTER_API_VERSION
 
     android = [
-            compileSdkVersion: 30,
-            buildToolsVersion: '30.0.2',
-            applicationId    : 'com.gujun.kotlinapp',
-            minSdkVersion    : 22,
-            targetSdkVersion : 30,
-            versionCode      : 1,
-            versionName      : '1.0',
-            multiDexEnabled  : true
+            compileSdkVersion         : 30,
+            buildToolsVersion         : '30.0.2',
+            applicationId             : 'com.gujun.kotlinapp',
+            minSdkVersion             : 22,
+            targetSdkVersion          : 30,
+            versionCode               : 1,
+            versionName               : '1.0',
+            multiDexEnabled           : true,
+            applicationIdSuffixDebug  : '.debug',
+            applicationIdSuffixRelease: ''
     ]
 
     androidx = [

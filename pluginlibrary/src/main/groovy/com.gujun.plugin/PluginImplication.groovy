@@ -82,6 +82,9 @@ public class PluginImplication implements Plugin<Project> {
      * @param project
      */
     void setApp(Project project, String curBuildModule) {
+        //设置ApplicationId
+        setApplicationId(project)
+
         if (":app" != curBuildModule) {
             project.apply plugin: 'com.android.application'
             //设置资源相关
@@ -93,6 +96,26 @@ public class PluginImplication implements Plugin<Project> {
 //                    res.srcDirs = ['src/main/res', 'src/main/runalone/res']
 //                }
 //            }
+        }
+    }
+
+    /**
+     * 设置applicationId相关数据
+     * @param project
+     */
+    void setApplicationId(Project project) {
+        project.android.defaultConfig {
+            applicationId project.getRootProject().ext.android.applicationId
+        }
+        project.android.buildTypes {
+            debug {
+                //applicationId扩展
+                applicationIdSuffix project.getRootProject().ext.android.applicationIdSuffixDebug
+            }
+            release {
+                //applicationId扩展
+                applicationIdSuffix project.getRootProject().ext.android.applicationIdSuffixRelease
+            }
         }
     }
 
