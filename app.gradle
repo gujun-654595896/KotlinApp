@@ -20,8 +20,9 @@ dependencies {
 android {
 
     defaultConfig {
-        versionCode rootProject.ext.android.versionCode
-        versionName rootProject.ext.android.versionName
+//        versionCode rootProject.ext.android.versionCode
+//        versionName rootProject.ext.android.versionName
+//        applicationId project.getRootProject().ext.android.applicationId
     }
 
     signingConfigs {

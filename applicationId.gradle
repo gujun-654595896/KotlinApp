@@ -1,0 +1,15 @@
+android {
+    defaultConfig {
+        applicationId rootProject.ext.android.applicationId
+    }
+    buildTypes {
+        debug {
+            //applicationId扩展
+            applicationIdSuffix rootProject.ext.android.applicationIdSuffixDebug
+        }
+        release {
+            //applicationId扩展
+            applicationIdSuffix rootProject.ext.android.applicationIdSuffixRelease
+        }
+    }
+}

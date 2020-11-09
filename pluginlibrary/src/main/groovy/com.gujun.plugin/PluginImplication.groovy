@@ -29,7 +29,8 @@ public class PluginImplication implements Plugin<Project> {
                         //设置app
                         setApp(project, curBuildModule)
                         //设置ApplicationId
-                        setApplicationIdInfo(project)
+                        //测试发现在代码中设置，运行时无法找到启动的Activity，导致无法直接打开页面，所以先暂时不动态设置
+//                        setApplicationIdInfo(project)
                         //添加需要依赖的app类型的module,需要在gradle.properties中配置
                         addCompileComponents(project)
                     } else {
