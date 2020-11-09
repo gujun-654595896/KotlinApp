@@ -86,15 +86,15 @@ public class PluginImplication implements Plugin<Project> {
     void setApp(Project project, String curBuildModule) {
         if (":app" != curBuildModule) {
             project.apply plugin: 'com.android.application'
-//            //设置资源相关
-//            project.android.sourceSets {
-//                main {
-//                    //设置独立运行所需资源的加载位置，需提前配置好,创建完对应的文件夹之后关闭Project从新打开，否则java和res文件夹不识别
-//                    manifest.srcFile 'src/main/runalone/AndroidManifest.xml'
-//                    java.srcDirs = ['src/main/java', 'src/main/runalone/java']
-//                    res.srcDirs = ['src/main/res', 'src/main/runalone/res']
-//                }
-//            }
+            //设置资源相关
+            project.android.sourceSets {
+                main {
+                    //设置独立运行所需资源的加载位置，需提前配置好,创建完对应的文件夹之后关闭Project从新打开，否则java和res文件夹不识别
+                    manifest.srcFile 'src/main/runalone/AndroidManifest.xml'
+                    java.srcDirs = ['src/main/java', 'src/main/runalone/java']
+                    res.srcDirs = ['src/main/res', 'src/main/runalone/res']
+                }
+            }
         }
     }
 
