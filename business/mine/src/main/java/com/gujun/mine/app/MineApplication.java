@@ -1,7 +1,6 @@
 package com.gujun.mine.app;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.gujun.common.base.IApplication;
 
@@ -15,7 +14,6 @@ public class MineApplication implements IApplication {
 
     @Override
     public void init(Application application) {
-        Log.e("1111111111111111", "init:  + MineApplication"+(application == null));
     }
 
 }
