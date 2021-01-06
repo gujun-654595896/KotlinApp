@@ -1,10 +1,12 @@
 package com.gujun.plugin
 
+import com.android.build.gradle.AppExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 public class PluginImplication implements Plugin<Project> {
 
+    @Override
     void apply(Project project) {
         //每个在build.gradle文件中添加插件（apply plugin: 'com.gujun.plugintest'）的都会执行此方法
 
@@ -58,6 +60,12 @@ public class PluginImplication implements Plugin<Project> {
             //普通编译
             setNotAssemble(project, curBuildModule)
         }
+
+        //字节码插桩技术
+        //AppExtension对应的是在build.gradle文件中配置了  project.apply plugin: 'com.android.application'
+        AppExtension appExtension = project.extensions.findByType(AppExtension.class)
+        if (appExtension != null)
+            appExtension.registerTransform(new BytecodeTransform(), Collections.EMPTY_LIST)
     }
 
     /**

@@ -1,15 +1,15 @@
-package com.gujun.home.app
+package com.gujun.mine.app
 
 import android.app.Application
 import com.alibaba.android.arouter.launcher.ARouter
-import com.gujun.home.BuildConfig
+import com.gujun.mine.BuildConfig
 
 /**
  *    author : gujun
  *    date   : 2020/11/6 10:28
  *    desc   :
  */
-class KotlinApp : Application() {
+class KotlinApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
