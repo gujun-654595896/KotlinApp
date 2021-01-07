@@ -6,11 +6,10 @@ apply from: rootProject.file('libbase.gradle')
 
 //所有系统的依赖和三方的依赖都在common module中的build.gradle文件中配置
 dependencies {
-
-    rootProject.ext.androidx.each {
-        k, v -> api v
-    }
-
     api "com.alibaba:arouter-api:$arouter_api_version"
 
+    //加载base project库
+    rootProject.ext.baseLibrary.each {
+        k, v -> api project(v)
+    }
 }

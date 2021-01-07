@@ -11,6 +11,11 @@ android {
         targetSdkVersion rootProject.ext.android.targetSdkVersion
     }
 
+    //如果支持dataBinding,请配置如下代码
+    dataBinding {
+        enabled = true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -22,5 +27,14 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    //加载androidx库
+    rootProject.ext.androidx.each {
+        k, v -> api v
+    }
+    //沉浸式状态栏的三方库
+    rootProject.ext.immersionBar.each {
+        k, v -> api v
+    }
 
 }

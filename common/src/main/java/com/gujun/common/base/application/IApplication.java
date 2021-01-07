@@ -1,4 +1,4 @@
-package com.gujun.common.base;
+package com.gujun.common.base.application;
 
 import android.app.Application;
 

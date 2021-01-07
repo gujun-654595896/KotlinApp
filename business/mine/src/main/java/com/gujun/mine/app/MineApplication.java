@@ -2,7 +2,7 @@ package com.gujun.mine.app;
 
 import android.app.Application;
 
-import com.gujun.common.base.IApplication;
+import com.gujun.common.base.application.IApplication;
 
 /**
  * author : gujun
