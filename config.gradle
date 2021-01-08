@@ -7,11 +7,10 @@ versions.AROUTER_COMPILER_VERSION = "1.5.1"
 versions.AROUTER_API_VERSION = "1.5.1"
 versions.RECYCLERVIEW = "1.0.0"
 versions.MATERIAL = "1.2.0"
+versions.IMMERSIONBAR = "3.0.0"
+versions.DAGGER = "2.30.1"
 
 ext {
-
-    arouter_compiler_version = versions.AROUTER_COMPILER_VERSION
-    arouter_api_version = versions.AROUTER_API_VERSION
 
     android = [
             compileSdkVersion         : 30,
@@ -45,16 +44,36 @@ ext {
     baseLibrary = [
             DATA_BASE: ":base:database",
             NETWORK  : ":base:network",
-            UTILS    : ":base:utils",
+            UTILS    : ":base:utils"
     ]
 
+    //浸入式状态栏工具
     immersionBar = [
             // 基础依赖包，必须要依赖
-            IMMERSIONBAR           : "com.gyf.immersionbar:immersionbar:3.0.0",
+            IMMERSIONBAR           : "com.gyf.immersionbar:immersionbar:$versions.IMMERSIONBAR",
             // fragment快速实现（可选）
-            IMMERSIONBAR_COMPONENTS: "com.gyf.immersionbar:immersionbar-components:3.0.0",
+            IMMERSIONBAR_COMPONENTS: "com.gyf.immersionbar:immersionbar-components:$versions.IMMERSIONBAR",
             // kotlin扩展（可选）
-            IMMERSIONBAR_KTX       : "com.gyf.immersionbar:immersionbar-ktx:3.0.0",
+            IMMERSIONBAR_KTX       : "com.gyf.immersionbar:immersionbar-ktx:$versions.IMMERSIONBAR"
+    ]
+
+    //依赖注入框架，降低代码耦合
+    dagger2 = [
+            DAGGER        : "com.google.dagger:dagger:$versions.DAGGER",
+            DAGGER_ANDROID: "com.google.dagger:dagger-android:$versions.DAGGER"
+
+    ]
+
+    //ARouter
+    arouter = [
+            AROUTER: "com.alibaba:arouter-api:$versions.AROUTER_API_VERSION",
+    ]
+
+    //注解处理器库，这些库必须放在每个用到的Module的配置中，否则报如下异常
+    //A failure occurred while executing org.jetbrains.kotlin.gradle.internal.KaptExecution
+    compilerLib = [
+            AROUTER_COMPILER: "com.alibaba:arouter-compiler:$versions.AROUTER_COMPILER_VERSION",
+            DAGGER_COMPILER : "com.google.dagger:dagger-compiler:$versions.DAGGER"
     ]
 
 }

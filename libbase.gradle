@@ -32,9 +32,5 @@ dependencies {
     rootProject.ext.androidx.each {
         k, v -> api v
     }
-    //沉浸式状态栏的三方库
-    rootProject.ext.immersionBar.each {
-        k, v -> api v
-    }
 
 }

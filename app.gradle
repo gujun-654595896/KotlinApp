@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+//arouter注解处理器需要的参数
 kapt {
     arguments {
         arg("AROUTER_MODULE_NAME", project.getName())
@@ -12,9 +13,9 @@ kapt {
 dependencies {
     api project(":common")
 
-    //这个库必须放在每个用到的Module的配置中，否则报如下异常
-    //A failure occurred while executing org.jetbrains.kotlin.gradle.internal.KaptExecution
-    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
+    rootProject.ext.compilerLib.each {
+        k, v -> kapt v
+    }
 }
 
 android {
@@ -48,7 +49,7 @@ android {
             //是否能断点
             debuggable = true
 
-            buildConfigField("boolean","IS_DEBUG",rootProject.ext.buildConfigDebug.IS_DEBUG)
+            buildConfigField("boolean", "IS_DEBUG", rootProject.ext.buildConfigDebug.IS_DEBUG)
         }
 
         release {
@@ -58,7 +59,7 @@ android {
             //是否能断点
             debuggable = false
 
-            buildConfigField("boolean","IS_DEBUG",rootProject.ext.buildConfigRelease.IS_DEBUG)
+            buildConfigField("boolean", "IS_DEBUG", rootProject.ext.buildConfigRelease.IS_DEBUG)
         }
     }
 }
