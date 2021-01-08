@@ -1,8 +1,11 @@
 package com.gujun.kotlinapp.ui.fragment
 
+import android.app.Activity
 import android.os.Bundle
+import com.gujun.common.arouter.home.jumpToHomeActivity
 import com.gujun.common.base.ui.fragment.BaseFragment
 import com.gujun.kotlinapp.R
+import kotlinx.android.synthetic.main.fragment_second.*
 
 /**
  *    author : gujun
@@ -20,6 +23,11 @@ class SecondFragment : BaseFragment() {
     }
 
     override fun initData() {
+
+    }
+
+    override fun initListener() {
+        jump.setOnClickListener { jumpToHomeActivity(activity as Activity) }
 
     }
 
