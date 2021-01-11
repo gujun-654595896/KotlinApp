@@ -2,6 +2,7 @@ package com.gujun.home.app
 
 import android.app.Application
 import com.alibaba.android.arouter.launcher.ARouter
+import com.gujun.common.base.application.BaseApplication
 import com.gujun.home.BuildConfig
 
 /**
@@ -9,7 +10,7 @@ import com.gujun.home.BuildConfig
  *    date   : 2020/11/6 10:28
  *    desc   :
  */
-class KotlinApplication : Application() {
+open class KotlinApplication : BaseApplication() {
 
     override fun onCreate() {
         super.onCreate()

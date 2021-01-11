@@ -243,7 +243,7 @@ public class BytecodeTransform extends Transform {
     }
 
     String applicationInterface() {
-        return "com/gujun/common/base/IApplication"
+        return "com/gujun/common/base/application/IApplication"
     }
 
 }

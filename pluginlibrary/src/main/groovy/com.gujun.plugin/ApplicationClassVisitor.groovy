@@ -11,7 +11,7 @@ public class ApplicationClassVisitor extends ClassVisitor implements Opcodes {
     private String mClassName;
     private String mSuperClassName;
 
-    private static final String CLASS_NAME_APPLICATION = "android/app/Application";
+    private static final String CLASS_NAME_APPLICATION = "com/gujun/common/base/application/BaseApplication";
 
     private static final String METHOD_NAME_ONCREATE = "onCreate";
 
