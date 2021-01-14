@@ -1,6 +1,8 @@
 package com.gujun.common.base.application
 
 import android.app.Application
+import com.gujun.common.base.injection.component.DaggerAppComponent
+import com.gujun.common.base.injection.module.AppModule
 
 /**
  *    author : gujun
@@ -9,7 +11,16 @@ import android.app.Application
  */
 open class BaseApplication : Application() {
 
+    lateinit var appComponent: DaggerAppComponent
+
     override fun onCreate() {
         super.onCreate()
+        initInjection()
+    }
+
+    private fun initInjection() {
+        appComponent = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .build() as DaggerAppComponent
     }
 }

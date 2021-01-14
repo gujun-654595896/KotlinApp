@@ -1,10 +1,10 @@
 package com.gujun.kotlinapp.ui.fragment
 
-import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import com.gujun.common.arouter.home.jumpToHomeActivity
 import com.gujun.common.base.ui.fragment.BaseFragment
 import com.gujun.kotlinapp.R
+import com.gujun.kotlinapp.ui.activity.TestMvpActivity
 import kotlinx.android.synthetic.main.fragment_second.*
 
 /**
@@ -27,7 +27,14 @@ class SecondFragment : BaseFragment() {
     }
 
     override fun initListener() {
-        jump.setOnClickListener { jumpToHomeActivity(activity as Activity) }
+        jump.setOnClickListener {
+            activity!!.startActivity(
+                Intent(
+                    activity,
+                    TestMvpActivity::class.java
+                )
+            )
+        }
 
     }
 
