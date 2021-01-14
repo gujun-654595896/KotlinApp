@@ -47,6 +47,6 @@ class TestMvpActivity : BaseMvpActivity<TestMvpPresenter>(), TestMvpContract.Vie
     }
 
     override fun showData(data: String) {
-        Log.e("11111111111111", "showData: " + data)
+        Log.e("testData", "showData: $data")
     }
 }

@@ -4,7 +4,6 @@ import com.gujun.common.base.application.BaseApplication
 import com.gujun.common.base.injection.component.DaggerActivityComponent
 import com.gujun.common.base.injection.module.ActivityModule
 import com.gujun.common.base.mvp.presenter.BasePresenter
-import com.gujun.common.base.mvp.view.BaseView
 import javax.inject.Inject
 
 /**
@@ -12,7 +11,7 @@ import javax.inject.Inject
  *    date   : 2021/1/8 11:44
  *    desc   : MVP的基类Activity
  */
-open abstract class BaseMvpActivity<T : BasePresenter> : BaseActivity(), BaseView {
+open abstract class BaseMvpActivity<T : BasePresenter> : BaseActivity() {
 
     @Inject
     lateinit var mPresenter: T
