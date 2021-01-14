@@ -7,9 +7,8 @@ import com.gujun.kotlinapp.R
 import com.gujun.kotlinapp.injection.component.DaggerTestMvpComponent
 import com.gujun.kotlinapp.injection.module.TestMvpModule
 import com.gujun.kotlinapp.mvp.TestMvpContract
-import com.gujun.kotlinapp.mvp.modelImpl.TestMvpModelImpl
 import com.gujun.kotlinapp.mvp.presenter.TestMvpPresenter
-import kotlinx.android.synthetic.main.fragment_second.*
+import kotlinx.android.synthetic.main.activity_test_mvp.*
 
 /**
  *    author : gujun
