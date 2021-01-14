@@ -11,6 +11,7 @@ import com.gujun.common.base.ui.widget.PageStateView
  *    author : gujun
  *    date   : 2021/1/6 14:41
  *    desc   : Fragment基类
+ *    功能:设置沉浸式、设置页面stateView
  */
 open abstract class BaseFragment : Fragment() {
 
