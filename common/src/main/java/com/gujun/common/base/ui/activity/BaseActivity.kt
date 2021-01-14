@@ -3,12 +3,14 @@ package com.gujun.common.base.ui.activity
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import com.gujun.common.base.ui.widget.PageStateView
 import com.gyf.immersionbar.ImmersionBar
 
 /**
  *    author : gujun
  *    date   : 2021/1/6 14:38
  *    desc   : Activity基类
+ *    功能:设置沉浸式、设置页面stateView
  */
 open abstract class BaseActivity : AppCompatActivity() {
 
@@ -17,6 +19,14 @@ open abstract class BaseActivity : AppCompatActivity() {
 
     //沉浸式状态栏后页面是否添加padding
     private var immersionBarPadding: Boolean = true
+
+    val STATE_LOADING = 1001
+    val STATE_ERROR = 1002
+    val STATE_EMPTY = 1003
+    val STATE_CONTENT = 1004
+
+    //页面状态视图
+    private var stateView: PageStateView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +38,10 @@ open abstract class BaseActivity : AppCompatActivity() {
         }
         //一些需要在onCreate中初始化的操作
         initOperate()
+        //stateView
+        if (needShowStateView()) {
+            addStateView()
+        }
         //初始化视图
         initView()
         //初始化数据
@@ -100,5 +114,39 @@ open abstract class BaseActivity : AppCompatActivity() {
      * 初始化监听
      */
     open fun initListener() {}
+
+    /**
+     * 展示对应的状态视图
+     */
+    open fun showStateView(state: Int) {
+        when (state) {
+            STATE_LOADING -> stateView?.showLoadingView()
+            STATE_EMPTY -> stateView?.showEmptyView()
+            STATE_ERROR -> stateView?.showErrorView()
+            STATE_CONTENT -> stateView?.showContentView()
+        }
+    }
+
+    /**
+     * 是否展示StateView
+     */
+    open fun needShowStateView() = false
+
+    /**
+     * 设置状态视图的布局，在initView()中设置即可,但是得在调用showStateView(state: Int)前
+     */
+    fun setStateViewResourceId(loadingResId: Int, errorResId: Int, emptyResId: Int) {
+        stateView?.setEmptyResourceId(emptyResId)
+        stateView?.setLoadingResourceId(loadingResId)
+        stateView?.setErrorResourceId(errorResId)
+    }
+
+    /**
+     * 添加状态视图
+     */
+    private fun addStateView() {
+        val rootView = this.window.decorView.findViewById(android.R.id.content) as ViewGroup
+        stateView = PageStateView.addStateView(rootView)
+    }
 
 }
