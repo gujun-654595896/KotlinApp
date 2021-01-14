@@ -91,6 +91,13 @@ open abstract class BaseFragment : Fragment() {
     open fun needShowStateView() = false
 
     /**
+     * 状态视图的重试按钮点击
+     */
+    open fun onRetryClick(v: View) {
+
+    }
+
+    /**
      * 设置状态视图的布局，在initView()中设置即可,但是得在调用showStateView(state: Int)前
      */
     fun setStateViewResourceId(loadingResId: Int, errorResId: Int, emptyResId: Int) {
@@ -105,6 +112,7 @@ open abstract class BaseFragment : Fragment() {
     private fun addStateView(stateParentView: ViewGroup?) {
         if (stateParentView != null) {
             stateView = PageStateView.addStateView(stateParentView)
+            stateView?.setRetryClickListener { onRetryClick(it) }
         } else
             throw IllegalStateException("Fragment PageStateView parentView is null")
     }

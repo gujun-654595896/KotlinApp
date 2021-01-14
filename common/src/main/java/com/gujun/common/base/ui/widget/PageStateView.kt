@@ -29,6 +29,8 @@ class PageStateView constructor(
 
     private var currentState = 0
 
+    private var stateViewRetryClickListener: ((v: View) -> Unit)? = null
+
     fun showLoadingView(): View? {
         currentState = STATE_LOADING
         if (loadingView == null)
@@ -45,10 +47,15 @@ class PageStateView constructor(
         return emptyView
     }
 
-    fun showErrorView(): View? {
+    fun showErrorView(retryBtnId: Int = 0): View? {
         currentState = STATE_ERROR
         if (errorView == null)
             errorView = inflateView(errorResourceId)
+        //注意此处，如果是自定义的error需要传进来retryId,否则使用默认视图的，再找不到就无法传递重试事件
+        errorView?.findViewById<View>(if (retryBtnId <= 0) R.id.retry else retryBtnId)
+            ?.setOnClickListener {
+                stateViewRetryClickListener?.invoke(it)
+            }
         showView()
         return errorView
     }
@@ -106,6 +113,10 @@ class PageStateView constructor(
 
     fun setErrorResourceId(@LayoutRes resId: Int) {
         this.errorResourceId = resId
+    }
+
+    fun setRetryClickListener(listener: (v: View) -> Unit) {
+        this.stateViewRetryClickListener = listener
     }
 
     companion object {

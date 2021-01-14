@@ -1,6 +1,7 @@
 package com.gujun.common.base.ui.activity
 
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.gujun.common.base.ui.widget.PageStateView
@@ -133,6 +134,13 @@ open abstract class BaseActivity : AppCompatActivity() {
     open fun needShowStateView() = false
 
     /**
+     * 状态视图的重试按钮点击
+     */
+    open fun onRetryClick(v: View) {
+
+    }
+
+    /**
      * 设置状态视图的布局，在initView()中设置即可,但是得在调用showStateView(state: Int)前
      */
     fun setStateViewResourceId(loadingResId: Int, errorResId: Int, emptyResId: Int) {
@@ -147,6 +155,7 @@ open abstract class BaseActivity : AppCompatActivity() {
     private fun addStateView() {
         val rootView = this.window.decorView.findViewById(android.R.id.content) as ViewGroup
         stateView = PageStateView.addStateView(rootView)
+        stateView?.setRetryClickListener { onRetryClick(it) }
     }
 
 }
