@@ -112,8 +112,6 @@ open abstract class BaseFragment : Fragment() {
     /**
      * 获取状态试图的父视图
      */
-    private fun getStateParentView(): ViewGroup? {
-        return null
-    }
+    open fun getStateParentView(): ViewGroup? = null
 
 }
