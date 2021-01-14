@@ -2,6 +2,7 @@ package com.gujun.kotlinapp.injection.module
 
 import com.gujun.common.base.injection.scop.ComponentScope
 import com.gujun.kotlinapp.mvp.TestMvpContract
+import com.gujun.kotlinapp.mvp.modelImpl.TestMvpModelImpl
 import dagger.Module
 import dagger.Provides
 
@@ -12,8 +13,7 @@ import dagger.Provides
  */
 @Module
 class TestMvpModule(
-    private val view: TestMvpContract.View,
-    private val model: TestMvpContract.Model
+    private val view: TestMvpContract.View
 ) {
 
     @Provides
@@ -25,7 +25,7 @@ class TestMvpModule(
     @Provides
     @ComponentScope
     fun provideModel(): TestMvpContract.Model {
-        return model
+        return TestMvpModelImpl()
     }
 
 }

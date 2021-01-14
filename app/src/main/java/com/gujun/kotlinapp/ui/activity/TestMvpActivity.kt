@@ -20,7 +20,7 @@ class TestMvpActivity : BaseMvpActivity<TestMvpPresenter>(), TestMvpContract.Vie
 
     override fun injectComponent() {
         DaggerTestMvpComponent.builder()
-            .testMvpModule(TestMvpModule(this, TestMvpModelImpl()))
+            .testMvpModule(TestMvpModule(this))
             .activityComponent(mActivityComponent)
             .build().inject(this)
     }
