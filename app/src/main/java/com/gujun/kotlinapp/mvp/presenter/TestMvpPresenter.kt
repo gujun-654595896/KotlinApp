@@ -24,6 +24,10 @@ class TestMvpPresenter : TestMvpContract.Presenter, TestMvpModelImpl.TestMvpMode
         mModel?.getData(this)
     }
 
+    override fun onDestroy() {
+        mModel?.onDestroy()
+    }
+
     override fun onResult(data: String) {
         mView?.showData(data)
     }

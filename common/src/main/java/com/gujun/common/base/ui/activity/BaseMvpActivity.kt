@@ -36,4 +36,9 @@ open abstract class BaseMvpActivity<T : BasePresenter> : BaseActivity() {
      * 注入Presenter的关键
      */
     abstract fun injectComponent()
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter.onDestroy()
+    }
 }

@@ -1,5 +1,6 @@
 package com.gujun.kotlinapp.mvp
 
+import com.gujun.common.base.mvp.model.BaseModel
 import com.gujun.common.base.mvp.presenter.BasePresenter
 import com.gujun.common.base.mvp.view.BaseView
 import com.gujun.kotlinapp.mvp.modelImpl.TestMvpModelImpl
@@ -21,7 +22,7 @@ interface TestMvpContract {
         fun getData()
     }
 
-    interface Model {
+    interface Model : BaseModel {
         fun getData(callback: TestMvpModelImpl.TestMvpModelImplCallBack)
     }
 }

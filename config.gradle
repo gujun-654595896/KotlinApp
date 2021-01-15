@@ -9,6 +9,7 @@ versions.RECYCLERVIEW = "1.0.0"
 versions.MATERIAL = "1.2.0"
 versions.IMMERSIONBAR = "3.0.0"
 versions.DAGGER = "2.30.1"
+versions.RETROFIT = "2.9.0"
 
 ext {
 
@@ -74,6 +75,12 @@ ext {
     compilerLib = [
             AROUTER_COMPILER: "com.alibaba:arouter-compiler:$versions.AROUTER_COMPILER_VERSION",
             DAGGER_COMPILER : "com.google.dagger:dagger-compiler:$versions.DAGGER"
+    ]
+
+    //网络框架retrofit2
+    retrofit2 = [
+            RETROFIT     : "com.squareup.retrofit2:retrofit:$versions.RETROFIT",
+            RETROFIT_GSON: "com.squareup.retrofit2:converter-gson:$versions.RETROFIT"
     ]
 
 }
