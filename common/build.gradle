@@ -34,6 +34,7 @@ dependencies {
         k, v -> api v
     }
 
+    //注解处理器
     rootProject.ext.compilerLib.each {
         k, v -> kapt v
     }

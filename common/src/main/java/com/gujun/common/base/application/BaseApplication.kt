@@ -3,6 +3,7 @@ package com.gujun.common.base.application
 import android.app.Application
 import com.gujun.common.base.injection.component.DaggerAppComponent
 import com.gujun.common.base.injection.module.AppModule
+import com.gujun.database.manager.DbManager
 
 /**
  *    author : gujun
@@ -16,11 +17,16 @@ open class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         initInjection()
+        initDatabase()
     }
 
     private fun initInjection() {
         appComponent = DaggerAppComponent.builder()
             .appModule(AppModule(this))
             .build() as DaggerAppComponent
+    }
+
+    private fun initDatabase() {
+        DbManager.initDb(applicationContext)
     }
 }
