@@ -24,6 +24,11 @@ android {
 //        versionCode rootProject.ext.android.versionCode
 //        versionName rootProject.ext.android.versionName
 //        applicationId project.getRootProject().ext.android.applicationId
+
+        //指定项目加载三方库的CPU架构,如果不指定会导致加载所有类型的so，增加APK体积
+        ndk {
+            abiFilters "armeabi-v7a"
+        }
     }
 
     signingConfigs {

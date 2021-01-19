@@ -4,6 +4,7 @@ import android.app.Application
 import com.gujun.common.base.injection.component.DaggerAppComponent
 import com.gujun.common.base.injection.module.AppModule
 import com.gujun.database.manager.DbManager
+import com.gujun.keystore.KeyStoreUtil
 
 /**
  *    author : gujun
@@ -27,6 +28,6 @@ open class BaseApplication : Application() {
     }
 
     private fun initDatabase() {
-        DbManager.initDb(applicationContext)
+        DbManager.initDb(applicationContext, KeyStoreUtil.getInstance().getDataBaseEncryptionKey())
     }
 }
