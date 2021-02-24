@@ -41,6 +41,19 @@ allprojects {
     }
 }
 
+//统一配置资源文件的命名规则，只能限制res中的xml文件,其他不能尽量自己按照规则命名
+subprojects {
+    afterEvaluate {
+        println project.parent.name
+        //必须是Android module
+        if ("business" == project.parent.name || "common" == project.name ) {
+            android {
+                resourcePrefix "${project.name}_"
+            }
+        }
+    }
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

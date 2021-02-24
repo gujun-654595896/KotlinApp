@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.gujun.common.base.ui.fragment.BaseFragment
 import com.gujun.kotlinapp.R
 import com.gujun.kotlinapp.ui.activity.TestMvpActivity
-import kotlinx.android.synthetic.main.fragment_second.*
+import kotlinx.android.synthetic.main.app_fragment_second.*
 
 /**
  *    author : gujun
@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_second.*
 class SecondFragment : BaseFragment() {
 
     override fun getLayoutId(): Int {
-        return R.layout.fragment_second
+        return R.layout.app_fragment_second
     }
 
     override fun initView() {

@@ -7,7 +7,7 @@ import com.gujun.kotlinapp.ui.fragment.SecondFragment
 class SecondActivity : BaseActivity() {
 
     override fun getLayoutId(): Int {
-        return R.layout.activity_second
+        return R.layout.app_activity_second
     }
 
     override fun isSetImmersionBar(): Boolean {

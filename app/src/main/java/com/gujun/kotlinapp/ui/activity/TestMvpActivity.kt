@@ -8,7 +8,7 @@ import com.gujun.kotlinapp.injection.component.DaggerTestMvpComponent
 import com.gujun.kotlinapp.injection.module.TestMvpModule
 import com.gujun.kotlinapp.mvp.TestMvpContract
 import com.gujun.kotlinapp.mvp.presenter.TestMvpPresenter
-import kotlinx.android.synthetic.main.activity_test_mvp.*
+import kotlinx.android.synthetic.main.app_activity_test_mvp.*
 
 /**
  *    author : gujun
@@ -31,7 +31,7 @@ class TestMvpActivity : BaseMvpActivity<TestMvpPresenter>(), TestMvpContract.Vie
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.activity_test_mvp
+        return R.layout.app_activity_test_mvp
     }
 
     override fun initView() {

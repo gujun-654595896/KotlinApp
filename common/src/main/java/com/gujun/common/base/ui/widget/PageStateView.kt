@@ -19,9 +19,9 @@ class PageStateView constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private var loadingResourceId = R.layout.layout_state_loading
-    private var emptyResourceId = R.layout.layout_state_empty
-    private var errorResourceId = R.layout.layout_state_error
+    private var loadingResourceId = R.layout.common_layout_state_loading
+    private var emptyResourceId = R.layout.common_layout_state_empty
+    private var errorResourceId = R.layout.common_layout_state_error
 
     private var loadingView: View? = null
     private var emptyView: View? = null
