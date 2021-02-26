@@ -1,6 +1,7 @@
 package com.gujun.utils.mmkv
 
 import android.app.Application
+import android.content.SharedPreferences
 import android.os.Parcelable
 import com.tencent.mmkv.MMKV
 
@@ -25,6 +26,13 @@ class MmvkUtil private constructor() {
         fun init(app: Application) {
             MMKV.initialize(app)
         }
+    }
+
+    /**
+     * 将SharedPreferences的旧数据导入到MMKV中
+     */
+    fun importSharePreference(sp: SharedPreferences) {
+        mmkv.importFromSharedPreferences(sp)
     }
 
     fun encode(key: String, value: Any) {
