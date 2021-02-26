@@ -14,6 +14,8 @@ versions.GREENDAO = "3.3.0"
 versions.SQLCIPHER = "4.4.2"
 versions.GREENDAO_UPGRADE_HELPER = "v2.2.1"
 
+versions.MMKV = "1.0.23"
+
 ext {
 
     android = [
@@ -94,6 +96,12 @@ ext {
             SQLCIPHER              : "net.zetetic:android-database-sqlcipher:$versions.SQLCIPHER",
             //数据库升级处理库
             GREENDAO_UPGRADE_HELPER: "io.github.yuweiguocn:GreenDaoUpgradeHelper:$versions.GREENDAO_UPGRADE_HELPER"
+    ]
+
+    //简单的三方工具,给base中的utils module使用的
+    utils = [
+            //MMKV 是腾讯开源的一款基于 mmap 内存映射的 key-value 组件，可替代SharePreference
+            MMKV: "com.tencent:mmkv:$versions.MMKV"
     ]
 
 }

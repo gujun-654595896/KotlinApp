@@ -5,6 +5,7 @@ import com.gujun.common.base.injection.component.DaggerAppComponent
 import com.gujun.common.base.injection.module.AppModule
 import com.gujun.database.manager.DbManager
 import com.gujun.keystore.KeyStoreUtil
+import com.gujun.utils.mmkv.MmvkUtil
 
 /**
  *    author : gujun
@@ -19,15 +20,29 @@ open class BaseApplication : Application() {
         super.onCreate()
         initInjection()
         initDatabase()
+        initMMKV()
     }
 
+    /**
+     * 初始化dagger注入
+     */
     private fun initInjection() {
         appComponent = DaggerAppComponent.builder()
             .appModule(AppModule(this))
             .build() as DaggerAppComponent
     }
 
+    /**
+     * 初始化数据库
+     */
     private fun initDatabase() {
         DbManager.initDb(applicationContext, KeyStoreUtil.getInstance().getDataBaseEncryptionKey())
+    }
+
+    /**
+     * 初始化MMKV（类似SharePreference）
+     */
+    private fun initMMKV() {
+        MmvkUtil.init(this)
     }
 }
