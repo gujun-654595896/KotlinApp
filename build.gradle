@@ -46,7 +46,7 @@ subprojects {
     afterEvaluate {
         println project.parent.name
         //必须是Android module
-        if ("business" == project.parent.name || "common" == project.name ) {
+        if ("business" == project.parent.name || "common" == project.name || "app" == project.name) {
             android {
                 resourcePrefix "${project.name}_"
             }
