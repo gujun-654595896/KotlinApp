@@ -19,7 +19,10 @@ import java.util.zip.ZipEntry
  */
 public class BytecodeTransform extends Transform {
 
-    BytecodeTransform() {
+    private String baseApplicationPath
+
+    BytecodeTransform(String baseApplicationPath) {
+        this.baseApplicationPath = baseApplicationPath
     }
 
     @Override
@@ -87,7 +90,7 @@ public class BytecodeTransform extends Transform {
                     if (isApplicationFile(name)) {
                         ClassReader classReader = new ClassReader(file.bytes)
                         ClassWriter classWriter = new ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
-                        ClassVisitor classVisitor = new ApplicationClassVisitor(classWriter, names)
+                        ClassVisitor classVisitor = new ApplicationClassVisitor(baseApplicationPath, classWriter, names)
                         classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
                         byte[] bytes = classWriter.toByteArray()
                         FileOutputStream fileOutputStream = new FileOutputStream(file.parentFile.absolutePath + File.separator + name)
@@ -133,7 +136,7 @@ public class BytecodeTransform extends Transform {
                     jarOutputStream.putNextEntry(zipEntry)
                     ClassReader classReader = new ClassReader(IOUtils.toByteArray(inputStream))
                     ClassWriter classWriter = new ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
-                    ClassVisitor classVisitor = new ApplicationClassVisitor(classWriter, names)
+                    ClassVisitor classVisitor = new ApplicationClassVisitor(baseApplicationPath, classWriter, names)
                     classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
                     byte[] bytes = classWriter.toByteArray()
                     jarOutputStream.write(bytes)

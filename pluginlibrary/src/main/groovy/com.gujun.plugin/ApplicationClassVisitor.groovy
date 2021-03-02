@@ -11,13 +11,14 @@ public class ApplicationClassVisitor extends ClassVisitor implements Opcodes {
     private String mClassName;
     private String mSuperClassName;
 
-    private static final String CLASS_NAME_APPLICATION = "com/gujun/common/base/application/BaseApplication";
+    private String baseApplicationPath
 
     private static final String METHOD_NAME_ONCREATE = "onCreate";
 
-    public ApplicationClassVisitor(ClassVisitor cv, Collection<String> names) {
+    public ApplicationClassVisitor(String baseApplicationPath, ClassVisitor cv, Collection<String> names) {
         super(Opcodes.ASM5, cv);
         this.names = names
+        this.baseApplicationPath = baseApplicationPath
     }
 
     @Override
@@ -32,7 +33,7 @@ public class ApplicationClassVisitor extends ClassVisitor implements Opcodes {
     public MethodVisitor visitMethod(int access, String name, String desc, String signature,
                                      String[] exceptions) {
         MethodVisitor methodVisitor = cv.visitMethod(access, name, desc, signature, exceptions);
-        if (CLASS_NAME_APPLICATION.equals(mSuperClassName)) {
+        if (baseApplicationPath != null && baseApplicationPath.equals(mSuperClassName)) {
             if (METHOD_NAME_ONCREATE.equals(name)) {
                 System.out.println("-------------------- ApplicationClassVisitor,visit method:" + name +
                         " --------------------");

@@ -64,8 +64,9 @@ public class PluginImplication implements Plugin<Project> {
         //字节码插桩技术
         //AppExtension对应的是在build.gradle文件中配置了  project.apply plugin: 'com.android.application'
         AppExtension appExtension = project.extensions.findByType(AppExtension.class)
+        String baseApplicationPath = project.properties.get("baseApplicationPath")
         if (appExtension != null)
-            appExtension.registerTransform(new BytecodeTransform(), Collections.EMPTY_LIST)
+            appExtension.registerTransform(new BytecodeTransform(baseApplicationPath), Collections.EMPTY_LIST)
     }
 
     /**
