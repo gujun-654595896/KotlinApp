@@ -14,6 +14,9 @@ kapt {
 //所有系统的依赖和三方的依赖都在common module中的build.gradle文件中配置
 dependencies {
 
+    //AndroidStudio升级插件后禁止本地直接加载.aar文件，所以通过module方式加载
+    implementation project(":lib_aar_module")
+
     //加载base project库
     rootProject.ext.baseLibrary.each {
         k, v -> api project(v)
