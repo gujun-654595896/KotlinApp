@@ -48,4 +48,8 @@ class MainActivity : BaseActivity() {
         list.forEach { builder.append(it.name).append(",,") }
         content.text = builder
     }
+
+    override fun showDefaultToolbar(): Boolean {
+        return false
+    }
 }

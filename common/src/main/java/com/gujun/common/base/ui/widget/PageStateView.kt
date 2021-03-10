@@ -16,7 +16,7 @@ import com.gujun.common.R
  */
 class PageStateView constructor(
     context: Context, attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0, val stateViewPaddingTop: Int
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     private var loadingResourceId = R.layout.common_layout_state_loading
@@ -119,6 +119,11 @@ class PageStateView constructor(
         this.stateViewRetryClickListener = listener
     }
 
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        setPadding(0, stateViewPaddingTop, 0, 0)
+    }
+
     companion object {
 
         const val STATE_LOADING = 1001
@@ -126,8 +131,9 @@ class PageStateView constructor(
         const val STATE_EMPTY = 1003
         const val STATE_CONTENT = 1004
 
-        fun addStateView(parentView: ViewGroup): PageStateView {
-            val stateView = PageStateView(parentView.context)
+        fun addStateView(parentView: ViewGroup, stateViewPaddingTop: Int = 0): PageStateView {
+            val stateView =
+                PageStateView(parentView.context, stateViewPaddingTop = stateViewPaddingTop)
             parentView.addView(stateView)
             return stateView
         }
