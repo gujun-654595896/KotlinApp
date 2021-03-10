@@ -5,6 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.gujun.common.base.ui.activity.STATE_CONTENT
+import com.gujun.common.base.ui.activity.STATE_EMPTY
+import com.gujun.common.base.ui.activity.STATE_ERROR
+import com.gujun.common.base.ui.activity.STATE_LOADING
 import com.gujun.common.base.ui.widget.PageStateView
 
 /**
@@ -14,11 +18,6 @@ import com.gujun.common.base.ui.widget.PageStateView
  *    功能:设置沉浸式、设置页面stateView
  */
 open abstract class BaseFragment : Fragment() {
-
-    val STATE_LOADING = 1001
-    val STATE_ERROR = 1002
-    val STATE_EMPTY = 1003
-    val STATE_CONTENT = 1004
 
     //页面状态视图
     private var stateView: PageStateView? = null
