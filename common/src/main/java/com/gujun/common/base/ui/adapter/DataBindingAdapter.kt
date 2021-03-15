@@ -1,12 +1,12 @@
 package com.gujun.common.base.ui.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import com.gujun.common.base.ui.adapter.holder.DataBindingViewHolder
 
 /**
@@ -14,26 +14,14 @@ import com.gujun.common.base.ui.adapter.holder.DataBindingViewHolder
  *    date   : 2021/1/6 14:40
  *    desc   : databinding 关联Recycler的基类Adapter
  */
-internal class DataBindingAdapter<T> : BaseRecyclerAdapter<T?> {
-    private var layoutId = 0
-    private var itemBRId = 0
-    private var clickListenerVariableId = 0
+abstract class DataBindingAdapter<T>(
+    diffCallback: DiffUtil.ItemCallback<T>,
+    private var layoutId: Int = 0,
+    private val itemBRId: Int = 0,
+    private val clickListenerVariableId: Int = 0
+) : ListAdapter<T, DataBindingViewHolder>(diffCallback) {
+
     private var l: OnItemViewClickListener<T>? = null
-
-    constructor(context: Context?) : super(context) {
-
-    }
-
-    constructor(
-        context: Context?,
-        layoutId: Int,
-        itemBRId: Int,
-        clickListenerVariableId: Int
-    ) : super(context) {
-        this.layoutId = layoutId
-        this.itemBRId = itemBRId
-        this.clickListenerVariableId = clickListenerVariableId
-    }
 
     fun setOnItemViewClickListener(listener: OnItemViewClickListener<T>) {
         l = listener
@@ -42,7 +30,10 @@ internal class DataBindingAdapter<T> : BaseRecyclerAdapter<T?> {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ViewHolder {
+    ): DataBindingViewHolder {
+        layoutId = if (layoutId == 0) getLayoutId() else layoutId
+        if (layoutId <= 0)
+            throw IllegalArgumentException("add layoutId in DataBindingAdapter")
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
             layoutId,
@@ -54,14 +45,19 @@ internal class DataBindingAdapter<T> : BaseRecyclerAdapter<T?> {
         return viewHolder
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DataBindingViewHolder, position: Int) {
         val videoListViewHolder = holder as DataBindingViewHolder
-        videoListViewHolder.getBinding()!!.setVariable(itemBRId, getItem(position))
-        if (l != null) videoListViewHolder.getBinding()!!.setVariable(clickListenerVariableId, l)
+        if (itemBRId > 0) videoListViewHolder.getBinding()!!
+            .setVariable(itemBRId, getItem(position))
+        if (l != null && clickListenerVariableId > 0) videoListViewHolder.getBinding()!!
+            .setVariable(clickListenerVariableId, l)
         videoListViewHolder.getBinding()!!.executePendingBindings()
     }
+
+    open fun getLayoutId(): Int = 0
 
     interface OnItemViewClickListener<T> {
         fun onViewClick(v: View?, program: T)
     }
+
 }
